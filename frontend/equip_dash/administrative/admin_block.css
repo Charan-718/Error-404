@@ -1,0 +1,236 @@
+/* Global Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: 'Arial', sans-serif;
+    background-image: url('light-green.png');
+    display: flex;
+  }
+  
+  .dashboard-container {
+    display: flex;
+    height: auto;
+    width: 100%;
+  }
+  
+  /* Sidebar */
+  .sidebar {
+    width: 250px;
+    height: 100%;
+    background-color: #499e95;/*Similar #089c84*/
+    padding: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    animation: slideIn 1.2s ease-out;
+    position: fixed;
+    overflow-y: scroll;/* To scroll the sidebar */
+  }
+  
+  .sidebar .nav-link {
+    color: #bce4e0;
+    padding: 10px 15px;
+    margin-bottom: 10px;
+    font-size: 14px;
+    transition: background-color 0.3s;
+  }
+  
+  .sidebar .nav-link:hover,
+  .sidebar .nav-link.active {
+    color: #499e95;
+    background-color: #082434;/*#5a54e7*/
+    border-radius: 8px;
+  }
+  
+  
+  .sidebar-logo {
+    color: #082434;
+    text-align: center;
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 120px;
+  }
+  
+  /*.nav-links {
+    list-style: none;
+  }
+  
+  .nav-links li {
+    margin: 20px 0;
+  }
+  
+  .nav-links a {
+    color: #fff;
+    background-color: #082434;
+    text-decoration: none;
+    font-size: 18px;
+    display: block;
+    padding: 10px;
+    border-radius: 8px;
+    transition: background 0.3s ease;
+  }
+  
+  .nav-links a:hover {
+    background: rgba(255, 255, 255, 0.2);
+  }*/
+  
+  /* Main Content */
+  .main-content {
+    padding: 40px;
+    width: calc(100% - 250px);
+    margin-left: 250px;
+    background-color: #bce4e0;
+    /* Bootstrap grid handles alignment; flex properties are not needed */
+  }
+  
+  /* Card Styles */
+  .card {
+    background: #fff;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+    transition: transform 0.5s ease;
+    margin-bottom: 30px;  /* Add spacing between cards */
+  }
+  
+  .card:hover {
+    transform: translateY(-10px) scale(1.02);
+  }
+  
+  .card-img-top {
+    width: 100%;
+    height: 130px;
+    object-fit: cover;
+    border-bottom: 2px solid #eee;
+  }
+  
+  .card-body {
+    padding: 20px;
+    text-align: center;
+  }
+  
+  .card-body h5 {
+    margin-bottom: 15px;
+    font-size: 20px;
+    color: #333;
+  }
+  
+  .card-body p {
+    font-size: 10px;
+    margin-bottom: 8px;
+    color: #555;
+  }
+  
+  .card-text {
+    display: flex;
+    justify-content: center; /* Center the content */
+    align-items: start;     /* Center align vertically */
+    font-size: 1rem; /* Adjust font size for clarity */
+  }
+  
+  /* Animations */
+  @keyframes slideIn {
+    from {
+        transform: translateX(-300px);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+  }
+  
+  
+  
+  
+  .card-img-top-wrapper {
+    overflow: hidden;
+    position: relative;
+  }
+  
+  .card-img-top {
+    transition: transform 0.5s ease;
+  }
+  
+  .card:hover .card-img-top {
+    transform: scale(1.1);
+  }
+  
+  .overlay {
+    opacity: 0;
+    transition: opacity 0.5s ease;
+  }
+  
+  .card:hover .overlay {
+    opacity: 1;
+  }
+  
+  .bg-gradient-primary {
+    background: linear-gradient(145deg, #5bc9a8, #84fa94,#9dcb6c);
+  }
+  
+  
+
+  .menu-title {
+    color: #bce4e0;
+    font-size: 18px;
+    padding: 15px 10px;
+    margin-bottom: 18px;
+    cursor: pointer;
+    display: block;
+    position: relative;
+    background-color: #082434;
+    border-radius: 20px;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+  }
+  
+  .menu-title:hover {
+    color: #499e95;
+    background-color: #bce4e0;
+    transform: translateX(5px);
+  }
+  
+  .dropdown {
+    display: none;
+    list-style: none;
+    padding-left: 20px;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s ease, background-color 0.3s ease;
+  }
+  
+  .dropdown li {
+    padding: 10px 0;
+    color: orange;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    position: relative;
+  }
+  
+  .dropdown li:hover {
+    color: blue;
+    padding-left: 3px;
+  }
+  
+  .dropdown li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    color: yellow;
+  }
+  
+  input[type="checkbox"] {
+    display: none;
+  }
+  
+  /* Show dropdown when checkbox is checked */
+  input[type="checkbox"]:checked + label + .dropdown {
+    display: block;
+    max-height: 450px; /* Height large enough to show all dropdown items */
+  }
+  
+  .dropdown li:hover {
+    background-color: #499e95;
+  }

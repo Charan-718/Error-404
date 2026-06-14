@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patient and Emergency Details</title>
+
+    <!-- Bootstrap CSS (For grid layout and form) -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="patient_details.css"> <!-- Your custom CSS file -->
+</head>
+<style>
+    .container {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .custom-card {
+            border: 1px solid #3a9fc0;
+            border-radius: 8px;
+            padding: 0;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .custom-card-header {
+            color: rgba(238, 120, 120, 0.799);
+            background-color: transparent;
+            backdrop-filter: blur(5px);
+            border-bottom: 1px solid #ddd;
+            padding: 10px;
+            border-top-left-radius: 8px;
+            border-top-right-radius: 8px;
+        }
+
+        .custom-card-body {
+            background-color: transparent;
+            backdrop-filter: blur(0px);
+            padding: 15px;
+        }
+
+        .custom-card-body table {
+            background-color: #3a9fc0; /* Apply pink background only to the table */
+            backdrop-filter: blur(4px);
+            width: 100%; /* Ensure table takes full width */
+        }
+
+        .custom-card-body th, 
+        .custom-card-body td {
+            background-color: #fbfdfe; /* Optional: Keep the header and cells white */
+            backdrop-filter: blur(2px);
+        }
+</style>
+<body>
+
+    <div>
+        <h2 class="text-center mb-4">Patient and Emergency Details</h2>
+
+        <!-- Search bar to filter patients and emergencies -->
+        <div class="input-group">
+            <input type="text" id="searchInput" class="" placeholder="Search by name or application number" onkeyup="filterData()">
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <!-- Patient Table Section -->
+            <div class="col-md-6">
+                <div class="custom-card mb-4">
+                    <div class="custom-card-header text-center">
+                        <h3 class="card-title mb-0">Patient Details</h3>
+                    </div>
+                    <div class="custom-card-body" style="max-height: 400px; overflow-y: auto;">
+                        <table id="patientTable" class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Application No</th>
+                                    <th>Full Name</th>
+                                    <th>DOB</th>
+                                    <th>Phone Number</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Patient rows will be populated here -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Emergency Details Section -->
+            <div class="col-md-6">
+                <div class="custom-card mb-4">
+                    <div class="custom-card-header text-center">
+                        <h3 class="card-title mb-0">Emergency Patient Details</h3>
+                    </div>
+                    <div class="custom-card-body" style="max-height: 400px; overflow-y: auto;">
+                        <table id="emergencyTable" class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Application No</th>
+                                    <th>Date of Joining</th>
+                                    <th>Doctor Assigned</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Emergency rows will be populated here -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS, Popper.js, and jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+
+    <script>
+        let patientsData = [];  // Store all patient data
+        let emergencyData = []; // Store all emergency patient data
+
+        // Fetch and display patient data from the patient collection
+        async function fetchPatientData() {
+            try {
+                const response = await fetch('http://localhost:5000/patient/get-all');
+                const patients = await response.json();
+                patientsData = patients;
+                displayPatients(patientsData);
+            } catch (error) {
+                console.error("Error fetching patient data:", error);
+            }
+        }
+
+        // Fetch and display emergency data from the emergency collection
+        async function fetchEmergencyData() {
+            try {
+                const response = await fetch('http://localhost:5000/api/emergency/get-all');
+                const emergencies = await response.json();
+                emergencyData = emergencies;
+                displayEmergencyPatients(emergencyData);
+            } catch (error) {
+                console.error("Error fetching emergency data:", error);
+            }
+        }
+
+        // Display patient data in the patient table
+        function displayPatients(patients) {
+            const tableBody = document.getElementById('patientTable').getElementsByTagName('tbody')[0];
+            tableBody.innerHTML = ''; // Clear previous rows
+
+            patients.forEach(patient => {
+                const row = tableBody.insertRow();
+                row.insertCell(0).textContent = patient.applicationNo;
+                row.insertCell(1).textContent = patient.fullName;
+                row.insertCell(2).textContent = formatDate(patient.dob); // Format the date
+                row.insertCell(3).textContent = patient.phone;
+
+                // View Details Button for patient details
+                const actionCell = row.insertCell(4);
+                const button = document.createElement('button');
+                button.textContent = 'View Details';
+                button.onclick = () => {
+                    window.location.href = `patient_detail_view.html?id=${patient._id}`; // Redirect to detailed view page
+                };
+                actionCell.appendChild(button);
+            });
+        }
+
+        // Display emergency patient data in the emergency table
+        function displayEmergencyPatients(emergencies) {
+            const tableBody = document.getElementById('emergencyTable').getElementsByTagName('tbody')[0];
+            tableBody.innerHTML = ''; // Clear previous rows
+
+            emergencies.forEach(emergency => {
+                const row = tableBody.insertRow();
+                row.insertCell(0).textContent = emergency.applicationNo;
+                row.insertCell(1).textContent = formatDate(emergency.joiningDate); // Format the date
+                row.insertCell(2).textContent = emergency.doctorAssigned;
+
+                // View Details Button for emergency patient details
+                const actionCell = row.insertCell(3);
+                const button = document.createElement('button');
+                button.textContent = 'View Details';
+                button.onclick = () => {
+                    window.location.href = `emergency_detail_view.html?id=${emergency._id}`; // Redirect to emergency detailed view page
+                };
+                actionCell.appendChild(button);
+            });
+        }
+
+        // Helper function to format dates to only display the date part
+        function formatDate(dateString) {
+            const date = new Date(dateString);
+            return date.toISOString().split('T')[0]; // Returns the date part (YYYY-MM-DD)
+        }
+
+        // Filter both patient and emergency data based on search input
+        function filterData() {
+            const searchQuery = document.getElementById('searchInput').value.toLowerCase();
+
+            const filteredPatients = patientsData.filter(patient =>
+                patient.fullName.toLowerCase().includes(searchQuery) || 
+                patient.applicationNo.toLowerCase().includes(searchQuery)
+            );
+            const filteredEmergencies = emergencyData.filter(emergency =>
+                emergency.applicationNo.toLowerCase().includes(searchQuery)
+            );
+
+            displayPatients(filteredPatients);
+            displayEmergencyPatients(filteredEmergencies);
+        }
+
+        // Fetch both patient and emergency data on page load
+        fetchPatientData();
+        fetchEmergencyData();
+    </script>
+
+    <style>
+        .container {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .table-section {
+            width: 48%;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        table, th, td {
+            border: 1px solid black;
+        }
+
+        th, td {
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+/*        button {
+            padding: 5px 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        } */
+    </style>
+
+</body>
+</html>

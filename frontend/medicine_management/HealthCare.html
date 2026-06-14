@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hospital Inventory Management</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background-color: #f4f4f4;
+        }
+
+        header {
+            background-color: #00796b;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        #search-bar {
+            padding: 10px;
+            width: 40%;
+            border-radius: 5px;
+            border: none;
+        }
+
+        #search-button {
+            padding: 10px 20px;
+            background-color: #004d40;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            padding: 20px;
+        }
+
+        .product-card {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .product-card img {
+            width: 100px;
+            height: 100px;
+            margin-bottom: 10px;
+        }
+
+        .product-card h2 {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+
+        .product-card p {
+            font-size: 14px;
+            color: #333;
+        }
+
+        .view-details {
+            padding: 10px 15px;
+            background-color: #00796b;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-top: 10px;
+            display: inline-block;
+            cursor: pointer;
+        }
+
+        .add-cart {
+            padding: 10px 15px;
+            background-color: #388e3c;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+
+
+        #cart {
+            margin: 20px;
+            padding: 20px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        #cart ul {
+            list-style-type: none;
+            margin-bottom: 20px;
+        }
+
+        #cart ul li {
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+
+        #cart-total {
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        
+        .medicine-details {
+            background-color: white;
+            padding: 20px;
+            margin: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            display: none;
+        
+        }
+
+        .medicine-details img {
+            width: 150px;
+            height: 150px;
+            margin-bottom: 20px;
+        }
+
+        .medicine-details h2 {
+            font-size: 22px;
+            margin-bottom: 10px;
+        }
+
+        .medicine-details p {
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+
+        .back-button {
+            margin-top: 20px;
+            background-color: #00796b;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            padding: 10px 15px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <h1>Hospital Inventory Management</h1>
+        <input type="text" placeholder="Search for medicines..." id="search-bar" onkeyup="searchMedicines()">
+        <button id="search-button" onclick="searchMedicines()">Search</button>
+        <a href="#cart-section" id="cart-button">Go to Cart</a>
+    </header>
+
+    
+    <section class="product-grid" id="medicine-list">
+        <div class="product-card">
+            <img src="https://res.cloudinary.com/dr5wci9op/image/upload/v1728632307/download_1_rhlud6.jpg">
+            <h2>Paracetamol (Dolo 650)</h2>
+            <p>500mg - For pain relief</p>
+            <p><strong>Price: ₹750</strong></p>
+            <p><strong>Rack No: A12</strong></p>
+            <button class="view-details" onclick="showDetails(1)">View Details</button>
+            <button class="add-cart" onclick="addToCart('Medicine Name 1', 750)">Add to Cart</button>
+        </div>
+        <div class="product-card">
+            <img src="https://res.cloudinary.com/dr5wci9op/image/upload/v1728632307/download_1_rhlud6.jpg" alt="Medicine 2">
+            <h2>Ibuprofen (Brufen)</h2>
+            <p>250mg - Nonsteroidal anti-inflammatory</p>
+            <p><strong>Price: ₹1000</strong></p>
+            <p><strong>Rack No: B7</strong></p>
+            <button class="view-details" onclick="showDetails(2)">View Details</button>
+            <button class="add-cart" onclick="addToCart('Medicine Name 2', 1000)">Add to Cart</button>
+        </div>
+        <div class="product-card">
+            <img src="https://res.cloudinary.com/dr5wci9op/image/upload/v1728632874/download_4_-Copy-_Copy_mxvraa.jpg" alt="Medicine 1">
+            <h2>Amoxicillin (Amoxycillin)</h2>
+            <p>500mg - Broad-spectrum antibiotic </p>
+            <p><strong>Price: ₹2500</strong></p>
+            <p><strong>Rack No: A12</strong></p>
+            <button class="view-details" onclick="showDetails(3)">View Details</button>
+            <button class="add-cart" onclick="addToCart('Medicine Name 1', 2500)">Add to Cart</button>
+        </div>
+        <div class="product-card">
+            <img src="https://res.cloudinary.com/dr5wci9op/image/upload/v1728632874/download_5_-Copy-_Copy_vdndql.jpg" alt="Medicine 2">
+            <h2>Ciprofloxacin (Ciplox)</h2>
+            <p>250mg - Antibiotic effective against</p>
+            <p><strong>Price: ₹2000</strong></p>
+            <p><strong>Rack No: B7</strong></p>
+            <button class="view-details" onclick="showDetails(4)">View Details</button>
+            <button class="add-cart" onclick="addToCart('Medicine Name 2', 2000)">Add to Cart</button>
+        </div>
+        <div class="product-card">
+            <img src="https://res.cloudinary.com/dr5wci9op/image/upload/v1728632874/download_6_-Copy-_Copy_z093sp.jpg" alt="Medicine 1">
+            <h2>Lisinopril (Listril)</h2>
+            <p>500mg - ACE inhibitor used to treat high</p>
+            <p><strong>Price: ₹3500</strong></p>
+            <p><strong>Rack No: A12</strong></p>
+            <button class="view-details" onclick="showDetails(5)">View Details</button>
+            <button class="add-cart" onclick="addToCart('Medicine Name 1', 3500)">Add to Cart</button>
+        </div>
+        <div class="product-card">
+            <img src="https://res.cloudinary.com/dr5wci9op/image/upload/v1728632874/download_3_-Copy-_Copy_ba8lub.jpg" alt="Medicine 2">
+            <h2>Amlodipine (Amlogard)</h2>
+            <p>250mg - Calcium channel blocker</p>
+            <p><strong>Price: ₹2500</strong></p>
+            <p><strong>Rack No: B7</strong></p>
+            <button class="view-details" onclick="showDetails(6)">View Details</button>
+            <button class="add-cart" onclick="addToCart('Medicine Name 2', 2500)">Add to Cart</button>
+        </div>
+        <div class="product-card">
+            <img src="https://res.cloudinary.com/dr5wci9op/image/upload/v1728632857/download_11_tjaxok.jpg" alt="Medicine 1">
+            <h2>Metformin (Glycomet)</h2>
+            <p>500mg - Oral medication for managing</p>
+            <p><strong>Price: ₹2250</strong></p>
+            <p><strong>Rack No: A12</strong></p>
+            <button class="view-details" onclick="showDetails(7)">View Details</button>
+            <button class="add-cart" onclick="addToCart('Medicine Name 1', 2250)">Add to Cart</button>
+        </div>
+        <div class="product-card">
+            <img src="https://res.cloudinary.com/dr5wci9op/image/upload/v1728632856/download_14_fhzw81.jpg" alt="Medicine 2">
+            <h2>Atorvastatin (Atorva)</h2>
+            <p>250mg - Statin used to lower cholesterol</p>
+            <p><strong>Price: ₹3000</strong></p>
+            <p><strong>Rack No: B7</strong></p>
+            <button class="view-details" onclick="showDetails(8)">View Details</button>
+            <button class="add-cart" onclick="addToCart('Medicine Name 2', 3000)">Add to Cart</button>
+        </div>
+        <div class="product-card">
+            <img src="https://res.cloudinary.com/dr5wci9op/image/upload/v1728632856/download_13_imlkfz.jpg" alt="Medicine 1">
+            <h2>Pantoprazole (Pantodac)</h2>
+            <p>500mg - Proton pump inhibitor </p>
+            <p><strong>Price: ₹2500</strong></p>
+            <p><strong>Rack No: A12</strong></p>
+            <button class="view-details" onclick="showDetails(9)">View Details</button>
+            <button class="add-cart" onclick="addToCart('Medicine Name 1', 2500)">Add to Cart</button>
+        </div>
+        <div class="product-card">
+            <img src="https://res.cloudinary.com/dr5wci9op/image/upload/v1728632856/download_13_imlkfz.jpg" alt="Medicine 2">
+            <h2>Medicine Name 2</h2>
+            <p>250mg - Histamine-2 blocker </p>
+            <p><strong>Price: ₹1500</strong></p>
+            <p><strong>Rack No: B7</strong></p>
+            <button class="view-details" onclick="showDetails(10)">View Details</button>
+            <button class="add-cart" onclick="addToCart('Medicine Name 2', 1500)">Add to Cart</button>
+        </div>
+        <div class="product-card">
+            <img src="https://res.cloudinary.com/dr5wci9op/image/upload/v1728632856/download_12_zlfcam.jpg" alt="Medicine 1">
+            <h2>Levothyroxine (Thyronorm)</h2>
+            <p>500mg - Synthetic thyroid hormone used to treat hypothyroidism </p>
+            <p><strong>Price: ₹1500</strong></p>
+            <p><strong>Rack No: A12</strong></p>
+            <button class="view-details" onclick="showDetails(11)">View Details</button>
+            <button class="add-cart" onclick="addToCart('Medicine Name 1', 1500)">Add to Cart</button>
+        </div>
+        <div class="product-card">
+            <img src="https://res.cloudinary.com/dr5wci9op/image/upload/v1728632856/download_15_lcbdbk.jpg" alt="Medicine 2">
+            <h2>Sertraline (Sertact)</h2>
+            <p>250mg - Selective serotonin reuptake inhibitor (SSRI) </p>
+            <p><strong>Price: ₹6000</strong></p>
+            <p><strong>Rack No: B7</strong></p>
+            <button class="view-details" onclick="showDetails(12)">View Details</button>
+            <button class="add-cart" onclick="addToCart('Medicine Name 2', 6000)">Add to Cart</button>
+        </div>
+        <div class="product-card">
+            <img src="https://res.cloudinary.com/dr5wci9op/image/upload/v1728632856/download_18_orkzux.jpg" alt="Medicine 1">
+            <h2>Clopidogrel (Clopilet)</h2>
+            <p>500mg - Antiplatelet medication that prevents blood clots</p>
+            <p><strong>Price: ₹3000</strong></p>
+            <p><strong>Rack No: A12</strong></p>
+            <button class="view-details" onclick="showDetails(13)">View Details</button>
+            <button class="add-cart" onclick="addToCart('Medicine Name 1', 3000)">Add to Cart</button>
+        </div>
+        <div class="product-card">
+            <img src="https://res.cloudinary.com/dr5wci9op/image/upload/v1728632856/download_16_yumxn2.jpg" alt="Medicine 2">
+            <h2>Gabapentin (Neurontin)</h2>
+            <p>250mg - Anticonvulsant used for neuropathic pain</p>
+            <p><strong>Price: ₹4000</strong></p>
+            <p><strong>Rack No: B7</strong></p>
+            <button class="view-details" onclick="showDetails(14)">View Details</button>
+            <button class="add-cart" onclick="addToCart('Medicine Name 2', 4000)">Add to Cart</button>
+        </div>
+        <div class="product-card">
+            <img src="https://res.cloudinary.com/dr5wci9op/image/upload/v1728632856/download_16_yumxn2.jpg" alt="Medicine 1">
+            <h2>Furosemide (Lasix)</h2>
+            <p>500mg - Loop diuretic that helps eliminate excess fluid </p>
+            <p><strong>Price: ₹600</strong></p>
+            <p><strong>Rack No: A12</strong></p>
+            <button class="view-details" onclick="showDetails(15)">View Details</button>
+            <button class="add-cart" onclick="addToCart('Medicine Name 1', 600)">Add to Cart</button>
+        </div>
+        <div class="product-card">
+            <img src="https://res.cloudinary.com/dr5wci9op/image/upload/v1728632856/download_17_bi97mu.jpg" alt="Medicine 2">
+            <h2>Metoprolol (Metolar)</h2>
+            <p>250mg - Beta-blocker that helps lower</p>
+            <p><strong>Price: ₹4000</strong></p>
+            <p><strong>Rack No: B7</strong></p>
+            <button class="view-details" onclick="showDetails(16)">View Details</button>
+            <button class="add-cart" onclick="addToCart('Medicine Name 2', 4000)">Add to Cart</button>
+        </div>
+        <div class="product-card">
+            <img src="https://res.cloudinary.com/dr5wci9op/image/upload/v1728632856/download_19_abpjr7.jpg" alt="Medicine 1">
+            <h2>Dexamethasone (Dexamethasone)</h2>
+            <p>500mg - Corticosteroid used to reduce</p>
+            <p><strong>Price: ₹1500</strong></p>
+            <p><strong>Rack No: A12</strong></p>
+            <button class="view-details" onclick="showDetails(17)">View Details</button>
+            <button class="add-cart" onclick="addToCart('Medicine Name 1', 1500)">Add to Cart</button>
+        </div>
+        <div class="product-card">
+            <img src="https://res.cloudinary.com/dr5wci9op/image/upload/v1728632855/download_7_-Copy-_Copy_kuj1y0.jpg" alt="Medicine 2">
+            <h2>Cetirizine (Zyrtec)</h2>
+            <p>250mg - Antihistamine used for allergy relief</p>
+            <p><strong>Price: ₹1000</strong></p>
+            <p><strong>Rack No: B7</strong></p>
+            <button class="view-details" onclick="showDetails(18)">View Details</button>
+            <button class="add-cart" onclick="addToCart('Medicine Name 2', 1000)">Add to Cart</button>
+        </div>
+        <div class="product-card">
+            <img src="https://res.cloudinary.com/dr5wci9op/image/upload/v1728632856/download_20_hw9yuj.jpg" alt="Medicine 1">
+            <h2>Nitrofurantoin (Macrodantin)</h2>
+            <p>500mg - Antibiotic used for urinary tract infections</p>
+            <p><strong>Price: ₹2000</strong></p>
+            <p><strong>Rack No: A12</strong></p>
+            <button class="view-details" onclick="showDetails(19)">View Details</button>
+            <button class="add-cart" onclick="addToCart('Medicine Name 1', 2000)">Add to Cart</button>
+        </div>
+        <div class="product-card">
+            <img src="https://res.cloudinary.com/dr5wci9op/image/upload/v1728632856/download_21_ixxolk.jpg" alt="Medicine 2">
+            <h2>Bupropion (Zyban)</h2>
+            <p>250mg - Antidepressant also used to help</p>
+            <p><strong>Price: ₹5000</strong></p>
+            <p><strong>Rack No: B7</strong></p>
+            <button class="view-details" onclick="showDetails(20)">View Details</button>
+            <button class="add-cart" onclick="addToCart('Medicine Name 2', 5000)">Add to Cart</button>
+        </div>
+        <div class="product-card">
+            <img src="https://res.cloudinary.com/dr5wci9op/image/upload/v1728632856/download_22_vpjgtv.jpg" alt="Medicine 1">
+            <h2>Tamsulosin (Tamsulosin)</h2>
+            <p>500mg - Alpha-blocker used to treat benign prostatic hyperplasia</p>
+            <p><strong>Price: ₹3000</strong></p>
+            <p><strong>Rack No: A12</strong></p>
+            <button class="view-details" onclick="showDetails(21)">View Details</button>
+            <button class="add-cart" onclick="addToCart('Medicine Name 1', 3000)">Add to Cart</button>
+        </div>
+        <div class="product-card">
+            <img src="https://res.cloudinary.com/dr5wci9op/image/upload/v1728632855/download_23_akfscz.jpg" alt="Medicine 2">
+            <h2>Zolpidem (Zolfresh)</h2>
+            <p>250mg - Sedative used for the short-term</p>
+            <p><strong>Price: ₹2000</strong></p>
+            <p><strong>Rack No: B7</strong></p>
+            <button class="view-details" onclick="showDetails(22)">View Details</button>
+            <button class="add-cart" onclick="addToCart('Medicine Name 2', 2000)">Add to Cart</button>
+        </div>
+        <div class="product-card">
+            <img src="https://res.cloudinary.com/dr5wci9op/image/upload/v1728632348/download_2_v9pabi.jpg" alt="Medicine 1">
+            <h2>Cholecalciferol (Vitamin D3)</h2>
+            <p>500mg - Vitamin supplement essential for bone health </p>
+            <p><strong>Price: ₹2500</strong></p>
+            <p><strong>Rack No: A12</strong></p>
+            <button class="view-details" onclick="showDetails(23)">View Details</button>
+            <button class="add-cart" onclick="addToCart('Medicine Name 1', 2500)">Add to Cart</button>
+        </div>
+        <div class="product-card">
+            <img src="https://res.cloudinary.com/dr5wci9op/image/upload/v1728632307/download_1_rhlud6.jpg" alt="Medicine 2">
+            <h2>Omega-3 Fatty Acids (Omega 3)</h2>
+            <p>250mg - Supplements beneficial for heart health and reducing.</p>
+            <p><strong>Price: ₹7500</strong></p>
+            <p><strong>Rack No: B7</strong></p>
+            <button class="view-details" onclick="showDetails(24)">View Details</button>
+            <button class="add-cart" onclick="addToCart('Medicine Name 2', 7500)">Add to Cart</button>
+        </div>
+    
+    </section>
+
+    <section id="cart-section">
+        <h2>Shopping Cart</h2>
+        <div id="cart">
+            <ul id="cart-items">
+                
+            </ul>
+            <p id="cart-total">Total: ₹0.00</p>
+            <button onclick="checkout()">Checkout</button>
+        </div>
+    </section>
+
+    
+    <section class="medicine-details" id="medicine-details">
+        <img id="medicine-image" src="" alt="Medicine Image">
+        <h2 id="medicine-name"></h2>
+        <p><strong>Dosage:</strong> <span id="medicine-dosage"></span></p>
+        <p><strong>Description:</strong> <span id="medicine-description"></span></p>
+        <p><strong>Price:</strong> <span id="medicine-price"></span></p>
+        <p><strong>Rack Number:</strong> <span id="medicine-rack"></span></p>
+        <p><strong>Expiry Date:</strong> <span id="medicine-expiry"></span></p>
+        <p><strong>Manufacturer:</strong> <span id="medicine-manufacturer"></span></p>
+        <p><strong>Side Effects:</strong> <span id="medicine-side-effects"></span></p>
+        <button class="add-cart" onclick="addToCart(document.getElementById('medicine-name').innerText, parseFloat(document.getElementById('medicine-price').innerText.substring(1)))">Add to Cart</button>
+        <button class="back-button" onclick="goBack()">Go Back</button>
+    </section>
+
+    <script>
+        const medicines = {
+            1: {
+                name: 'Dolo 650',
+                dosage: '650mg',
+                description: 'decreasing fever and pain, and it has a minimal anti-inflammatory action',
+                price: '₹15',
+                rack: 'A12',
+                expiry: '12/2025',
+                manufacturer: 'M.S. Ghulati (Dolan)',
+                sideEffects: 'Nausea, dizziness, and drowsiness.',
+                image: 'https://res.cloudinary.com/dr5wci9op/image/upload/v1728631490/dolo-650-tablet-15_dolo-650-tablet-15--TM-TACR1-011691_1_lovhro.webp'
+            },
+            2: {
+                name: 'Ibuprofen (Brufen)',
+                dosage: '250mg',
+                description: 'Nonsteroidal anti-inflammatory drug (NSAID) for pain relief and to reduce inflammation and fever.',
+                price: '₹20',
+                rack: 'B7',
+                expiry: '10/2024',
+                manufacturer: 'Abbott',
+                sideEffects: 'Stomach upset, nausea, headache, dizziness',
+                image: 'medicine2.jpg'
+            },
+            3: {
+                name: 'Amoxicillin (Amoxycillin)',
+                dosage: '500mg',
+                description: 'Broad-spectrum antibiotic used for bacterial infections such as respiratory and urinary tract infections.',
+                price: '₹50',
+                rack: 'A12',
+                expiry: '12/2025',
+                manufacturer: 'Ranbaxy',
+                sideEffects: 'Diarrhea, rash, nausea, allergic reactions.',
+                image: 'medicine1.jpg'
+            },
+            4: {
+                name: 'Ciprofloxacin (Ciplox)',
+                dosage: '250mg',
+                description: 'Antibiotic effective against various bacterial infections, including urinary tract and gastrointestinal infections.',
+                price: '₹40',
+                rack: 'B7',
+                expiry: '10/2024',
+                manufacturer: 'Cipla',
+                sideEffects: 'Nausea, diarrhea, dizziness, headache',
+                image: 'medicine2.jpg'
+            },
+            5: {
+                name: 'Lisinopril (Listril)',
+                dosage: '500mg',
+                description: 'ACE inhibitor used to treat high blood pressure and heart failure, helping to relax blood vessels.',
+                price: '₹70',
+                rack: 'A12',
+                expiry: '12/2025',
+                manufacturer: 'Zydus Cadila',
+                sideEffects: 'Cough, dizziness, headache, elevated potassium levels',
+                image: 'medicine1.jpg'
+            },
+            6: {
+                name: 'Amlodipine (Amlogard)',
+                dosage: '250mg',
+                description: 'Calcium channel blocker that helps lower blood pressure and relieve angina (chest pain).',
+                price: '₹50',
+                rack: 'B7',
+                expiry: '10/2024',
+                manufacturer: 'Sun Pharma',
+                sideEffects: 'Swelling of feet/ankles, dizziness, flushing',
+                image: 'medicine2.jpg'
+            },
+            7: {
+                name: 'Metformin (Glycomet)',
+                dosage: '500mg',
+                description: 'Oral medication for managing type 2 diabetes by lowering blood sugar levels.',
+                price: '₹45',
+                rack: 'A12',
+                expiry: '12/2025',
+                manufacturer: 'Torrent Pharmaceuticals',
+                sideEffects: 'Nausea, diarrhea, stomach upset, lactic acidosis (rare)',
+                image: 'medicine1.jpg'
+            },
+            8: {
+                name: 'Atorvastatin (Atorva)',
+                dosage: '250mg',
+                description: 'Statin used to lower cholesterol levels and reduce the risk of heart disease.',
+                price: '₹60',
+                rack: 'B7',
+                expiry: '10/2024',
+                manufacturer: 'Ranbaxy',
+                sideEffects: 'Muscle pain, liver damage, digestive issues',
+                image: 'medicine2.jpg'
+            },
+            9: {
+                name: 'Pantoprazole (Pantodac)',
+                dosage: '500mg',
+                description: 'Proton pump inhibitor that reduces stomach acid production, used for heartburn and gastric ulcers.',
+                price: '₹50',
+                rack: 'A12',
+                expiry: '12/2025',
+                manufacturer: 'Intas Pharmaceuticals',
+                sideEffects: 'Nausea, diarrhea, headache, dizziness',
+                image: 'medicine1.jpg'
+            },
+            10: {
+                name: 'Ranitidine (Rantac)',
+                dosage: '250mg',
+                description: 'Histamine-2 blocker that decreases stomach acid production (Note: may be withdrawn in some markets).',
+                price: '₹30',
+                rack: 'B7',
+                expiry: '10/2024',
+                manufacturer: 'GlaxoSmithKline',
+                sideEffects: 'Headache, dizziness, constipation, nausea',
+                image: 'medicine2.jpg'
+            },
+            11: {
+                name: 'Levothyroxine (Thyronorm)',
+                dosage: '500mg',
+                description: 'Synthetic thyroid hormone used to treat hypothyroidism by restoring hormone levels.',
+                price: '₹80',
+                rack: 'A12',
+                expiry: '12/2025',
+                manufacturer: 'Abbott',
+                sideEffects: 'Increased heart rate, insomnia, weight loss, anxiety',
+                image: 'medicine1.jpg'
+            },
+            12: {
+                name: 'Sertraline (Sertact)',
+                dosage: '250mg',
+                description: 'Selective serotonin reuptake inhibitor (SSRI) antidepressant used for depression and anxiety disorders..',
+                price: '₹120',
+                rack: 'B7',
+                expiry: '10/2024',
+                manufacturer: 'Zydus Cadila',
+                sideEffects: 'Nausea, diarrhea, insomnia, sexual dysfunction',
+                image: 'medicine2.jpg'
+            },
+            13: {
+                name: 'Clopidogrel (Clopilet)',
+                dosage: '500mg',
+                description: 'Antiplatelet medication that prevents blood clots, used after heart attacks or strokes..',
+                price: '₹60',
+                rack: 'A12',
+                expiry: '12/2025',
+                manufacturer: 'M S Dhawan',
+                sideEffects: 'Nausea, dizziness, and drowsiness.',
+                image: 'medicine1.jpg'
+            },
+            14: {
+                name: 'Gabapentin (Neurontin)',
+                dosage: '250mg',
+                description: 'Anticonvulsant used for neuropathic pain and to control seizures.',
+                price: '₹80',
+                rack: 'B7',
+                expiry: '10/2024',
+                manufacturer: 'Pfizer',
+                sideEffects: 'Stomach upset, diarrhea.',
+                image: 'medicine2.jpg'
+            },
+            15: {
+                name: 'Medicine Name 1',
+                dosage: '500mg',
+                description: 'For pain relief.',
+                price: '₹10',
+                rack: 'A12',
+                expiry: '12/2025',
+                manufacturer: 'ABC Pharma',
+                sideEffects: 'Nausea, dizziness, and drowsiness.',
+                image: 'medicine1.jpg'
+            },
+            16: {
+                name: 'Gabapentin (Neurontin)',
+                dosage: '250mg',
+                description: 'Anticonvulsant used for neuropathic pain and to control seizures.',
+                price: '₹80',
+                rack: 'B7',
+                expiry: '10/2024',
+                manufacturer: 'Pfizer',
+                sideEffects: 'Stomach upset, diarrhea.',
+                image: 'medicine2.jpg'
+            },
+            17: {
+                name: 'Medicine Name 1',
+                dosage: '500mg',
+                description: 'For pain relief.',
+                price: '₹10',
+                rack: 'A12',
+                expiry: '12/2025',
+                manufacturer: 'ABC Pharma',
+                sideEffects: 'Nausea, dizziness, and drowsiness.',
+                image: 'medicine1.jpg'
+            },
+            18: {
+                name: 'Gabapentin (Neurontin)',
+                dosage: '250mg',
+                description: 'Anticonvulsant used for neuropathic pain and to control seizures.',
+                price: '₹80',
+                rack: 'B7',
+                expiry: '10/2024',
+                manufacturer: 'Pfizer',
+                sideEffects: 'Stomach upset, diarrhea.',
+                image: 'medicine2.jpg'
+            },
+            19: {
+                name: 'Medicine Name 1',
+                dosage: '500mg',
+                description: 'For pain relief.',
+                price: '₹10.00',
+                rack: 'A12',
+                expiry: '12/2025',
+                manufacturer: 'ABC Pharma',
+                sideEffects: 'Nausea, dizziness, and drowsiness.',
+                image: 'medicine1.jpg'
+            },
+            20: {
+                name: 'Gabapentin (Neurontin)',
+                dosage: '250mg',
+                description: 'Anticonvulsant used for neuropathic pain and to control seizures.',
+                price: '₹80',
+                rack: 'B7',
+                expiry: '10/2024',
+                manufacturer: 'Pfizer',
+                sideEffects: 'Stomach upset, diarrhea.',
+                image: 'medicine2.jpg'
+            },
+            21: {
+                name: 'Medicine Name 1',
+                dosage: '500mg',
+                description: 'For pain relief.',
+                price: '₹10.00',
+                rack: 'A12',
+                expiry: '12/2025',
+                manufacturer: 'ABC Pharma',
+                sideEffects: 'Nausea, dizziness, and drowsiness.',
+                image: 'medicine1.jpg'
+            },
+            22: {
+                name: 'Gabapentin (Neurontin)',
+                dosage: '250mg',
+                description: 'Anticonvulsant used for neuropathic pain and to control seizures.',
+                price: '₹80',
+                rack: 'B7',
+                expiry: '10/2024',
+                manufacturer: 'Pfizer',
+                sideEffects: 'Stomach upset, diarrhea.',
+                image: 'medicine2.jpg'
+            },
+            23: {
+                name: 'Medicine Name 1',
+                dosage: '500mg',
+                description: 'For pain relief.',
+                price: '₹10.00',
+                rack: 'A12',
+                expiry: '12/2025',
+                manufacturer: 'ABC Pharma',
+                sideEffects: 'Nausea, dizziness, and drowsiness.',
+                image: 'medicine1.jpg'
+            },
+            24: {
+                name: 'Gabapentin (Neurontin)',
+                dosage: '250mg',
+                description: 'Anticonvulsant used for neuropathic pain and to control seizures.',
+                price: '₹80',
+                rack: 'B7',
+                expiry: '10/2024',
+                manufacturer: 'Pfizer',
+                sideEffects: 'Stomach upset, diarrhea.',
+                image: 'medicine2.jpg'
+            },
+            25: {
+                name: 'Medicine Name 1',
+                dosage: '500mg',
+                description: 'For pain relief.',
+                price: '₹10.00',
+                rack: 'A12',
+                expiry: '12/2025',
+                manufacturer: 'ABC Pharma',
+                sideEffects: 'Nausea, dizziness, and drowsiness.',
+                image: 'medicine1.jpg'
+            }
+
+        };
+
+        const cart = [];
+let totalPrice = 0;
+
+function addToCart(name, price) {
+    cart.push({ name, price });
+    updateCart();
+}
+
+function updateCart() {
+    const cartItems = document.getElementById('cart-items');
+    cartItems.innerHTML = '';
+    totalPrice = 0;
+
+    cart.forEach(item => {
+        const li = document.createElement('li');
+        li.innerText = `${item.name} - ₹${item.price.toFixed(2)}`;
+        cartItems.appendChild(li);
+        totalPrice += item.price;
+    });
+
+    document.getElementById('cart-total').innerText = `Total: ₹${totalPrice.toFixed(2)}`;
+}
+
+function searchMedicines() {
+    const searchTerm = document.getElementById('search-bar').value.toLowerCase();
+    const products = document.querySelectorAll('.product-card');
+
+    products.forEach(product => {
+        const productName = product.querySelector('h2').textContent.toLowerCase();
+        if (productName.includes(searchTerm)) {
+            product.style.display = 'block';
+        } else {
+            product.style.display = 'none';
+        }
+    });
+}
+
+function showDetails(id) {
+            const medicine = medicines[id];
+            document.getElementById('medicine-image').src = medicine.image;
+            document.getElementById('medicine-name').innerText = medicine.name;
+            document.getElementById('medicine-dosage').innerText = medicine.dosage;
+            document.getElementById('medicine-description').innerText = medicine.description;
+            document.getElementById('medicine-price').innerText = medicine.price;
+            document.getElementById('medicine-rack').innerText = medicine.rack;
+            document.getElementById('medicine-expiry').innerText = medicine.expiry;
+            document.getElementById('medicine-manufacturer').innerText = medicine.manufacturer;
+            document.getElementById('medicine-side-effects').innerText = medicine.sideEffects;
+
+
+
+            document.getElementById('medicine-list').style.display = 'none';
+            document.getElementById('cart-section').style.display = 'none';
+            document.getElementById('medicine-details').style.display = 'block';
+        }
+
+        function goBack() {
+            // Hide medicine details and show inventory
+            //document.getElementById('medicine-details').style.display = 'none';
+            //document.getElementById('cart-section').style.display = 'none';
+           // document.getElementById('medicine-list').style.display = 'block';
+           window.location.href = `HealthCare.html`
+        }
+        function checkout() {
+            alert(`Your total bill is ₹${totalPrice.toFixed(2)}. Thank you for your purchase!`);
+            cart.length = 0;
+            updateCart();
+        }
+
+    </script>
+
+</body>
+
+</html>

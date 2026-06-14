@@ -1,0 +1,97 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+  }
+  
+  body {
+    display: flex;
+    height: 100vh;
+  }
+  
+  /* Sidebar Styling */
+  .sidebar {
+    width: 250px;
+    background-color: #333;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.3);
+  }
+  
+  .menu-title {
+    color: white;
+    font-size: 18px;
+    padding: 15px 10px;
+    cursor: pointer;
+    display: block;
+    position: relative;
+    background-color: #444;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+  }
+  
+  .menu-title:hover {
+    background-color: #555;
+    transform: translateX(5px);
+  }
+  
+  .dropdown {
+    display: none;
+    list-style: none;
+    padding-left: 20px;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s ease, background-color 0.3s ease;
+  }
+  
+  .dropdown li {
+    padding: 10px 0;
+    color: #ccc;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    position: relative;
+  }
+  
+  .dropdown li:hover {
+    color: white;
+    background-color: #444;
+    padding-left: 10px;
+  }
+  
+  .dropdown li::before {
+    content: "•";
+    position: absolute;
+    left: 0;
+    color: #888;
+  }
+  
+  input[type="checkbox"] {
+    display: none;
+  }
+  
+  /* Show dropdown when checkbox is checked */
+  input[type="checkbox"]:checked + label + .dropdown {
+    display: block;
+    max-height: 200px; /* Height large enough to show all dropdown items */
+  }
+  
+  .dropdown li:hover {
+    background-color: #444;
+  }
+  
+  /* Content Area */
+  .content {
+    flex-grow: 1;
+    padding: 40px;
+    background-color: #f4f4f4;
+  }
+  
+  .content h1 {
+    font-size: 32px;
+  }
+  
+  .content p {
+    font-size: 18px;
+  }
+  

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="log.css">
+</head>
+<body>
+    <div class="signup-container">
+        <div class="signup-box">
+            <h2>Login</h2>
+            <form id="loginform">
+                <div class="input-box">
+                    <input type="text" name="loginID" required>
+                    <label>Email or Phone</label>
+                    <span class="focus-border"></span>
+                </div>
+                <div class="input-box">
+                    <input type="password" name="password" required>
+                    <label>Password</label>
+                    <span class="focus-border"></span>
+                </div>
+                <div class="remember-forgot">
+                <!--    <label><input type="checkbox"> Remember me</label>-->
+                    <a href="#">Forgot password?</a>
+                </div>
+                <button type="submit" class="login-btn">Login</button>
+                <p class="signin-text">Don't have an account? <a href="hospital_signup.html">Sign up</a></p>
+            </form>
+        </div>
+        <div>
+            <img class="doc-img" src="doc5.avif" />
+        </div>
+    </div>
+
+    <script>
+        document.querySelector('#loginform').addEventListener('submit', async (e) => {
+            e.preventDefault();
+    
+            const loginID = document.querySelector('input[name="loginID"]').value;
+            const password = document.querySelector('input[name="password"]').value;
+    
+            const response = await fetch('http://localhost:5000/api/auth/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ loginID, password }),
+            });
+    
+            const data = await response.json();
+            if (response.ok) {
+                alert('Login successful!');
+                window.location.href = '../interface.html'; // Redirect on successful login
+            } else {
+                alert(data.error);
+            }
+        });
+    </script>
+</body>
+</html>

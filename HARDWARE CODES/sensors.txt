@@ -1,0 +1,195 @@
+#include <Wire.h>
+#include <LiquidCrystal_I2C.h>
+#include <WiFi.h>
+#include <WebServer.h>
+#include <DHT.h>
+#include <HTTPClient.h>
+#include <base64.h>
+
+const char* ssid = "oneplus";  
+const char* password = "123456789";  
+
+const char* twilio_account_sid = "YOUR_TWILIO_SID";
+const char* twilio_auth_token = "YOUR_TWILIO_AUTH_TOKEN";
+const char* twilio_to_number = "+917989219648";  
+const char* twilio_from_number = "+14252150723";  
+
+#define TRIG_PIN 18  
+#define ECHO_PIN 19  
+
+#define DHTPIN 4      
+#define DHTTYPE DHT11 
+DHT dht(DHTPIN, DHTTYPE);
+
+#define IR_SENSOR_1 13 
+#define IR_SENSOR_2 12
+#define IR_SENSOR_3 14
+#define IR_SENSOR_4 27
+#define IR_SENSOR_5 26
+
+const char* ir_sensor_names[] = {"DOLO 650", "PANTOP 40MG", "MITHYL ORANGE", "HCL", "HIMALAYA"};
+
+long duration;
+float distance;      
+float maxHeight = 20.0; 
+float percentage;
+
+WebServer server(80);
+
+LiquidCrystal_I2C lcd(0x27, 16, 2); 
+
+void measureMedicineLevel() {
+  digitalWrite(TRIG_PIN, LOW);
+  delayMicroseconds(2);
+  digitalWrite(TRIG_PIN, HIGH);
+  delayMicroseconds(10);
+  digitalWrite(TRIG_PIN, LOW);
+
+  duration = pulseIn(ECHO_PIN, HIGH);
+
+  distance = (duration * 0.034) / 2;
+
+  percentage = (1 - (distance / maxHeight)) * 100;
+}
+
+void sendTwilioSMS(const char* message) {
+    String auth = String(twilio_account_sid) + ":" + String(twilio_auth_token);
+    auth = base64::encode((const uint8_t*)auth.c_str(), auth.length());
+
+    HTTPClient http;
+    http.begin("https://api.twilio.com/2010-04-01/Accounts/" + String(twilio_account_sid) + "/Messages.json");
+    http.addHeader("Authorization", "Basic " + auth);
+    http.addHeader("Content-Type", "application/x-www-form-urlencoded");
+
+    String payload = "From=" + String(twilio_from_number) + "&To=" + String(twilio_to_number) + "&Body=" + String(message);
+
+    int httpResponseCode = http.POST(payload);
+    Serial.print("HTTP Response Code: ");
+    Serial.println(httpResponseCode);
+    String response = http.getString();
+    Serial.println("Response: " + response);
+
+    http.end();
+}
+
+void checkIRSensorStock() {
+  for (int i = 0; i < 5; i++) {
+    if (digitalRead(IR_SENSOR_1 + i) == LOW) {
+      String message = "There is no stock of " + String(ir_sensor_names[i]);
+      sendTwilioSMS(message.c_str());
+      Serial.println(message); 
+      delay(1000); 
+    }
+  }
+}
+
+void displayParkingStatusOnLCD() {
+  lcd.clear();
+  lcd.setCursor(0, 0);
+  lcd.print("Parking Status:");
+  
+  for (int i = 1; i <= 5; i++) {
+    lcd.setCursor(0, 1);
+    lcd.print("Slot ");
+    lcd.print(i);
+    lcd.print(": ");
+    if (digitalRead(IR_SENSOR_1 + (i - 1)) == LOW) {
+      lcd.print("Occupied");
+    } else {
+      lcd.print("Available");
+    }
+    delay(2000);  
+  }
+}
+
+String readIRSensors() {
+  String status = "";
+  status += "<div class='card'><h2>DOLO 650</h2><p>" + String(digitalRead(IR_SENSOR_1) == LOW ? "Available" : "Not Available") + "</p></div>";
+  status += "<div class='card'><h2>PANTOP 40MG 2</h2><p>" + String(digitalRead(IR_SENSOR_2) == LOW ? "Available" : "Not Available") + "</p></div>";
+  status += "<div class='card'><h2>MITHYL ORANGE</h2><p>" + String(digitalRead(IR_SENSOR_3) == LOW ? "Available" : "Not Available") + "</p></div>";
+  status += "<div class='card'><h2>HCL</h2><p>" + String(digitalRead(IR_SENSOR_4) == LOW ? "Available" : "Not Available") + "</p></div>";
+  status += "<div class='card'><h2>HIMALAYA</h2><p>" + String(digitalRead(IR_SENSOR_5) == LOW ? "Available" : "Not Available") + "</p></div>";
+  return status;
+}
+
+String getHtmlPage() {
+  measureMedicineLevel();
+  float humidity = dht.readHumidity();    
+  float temperature = dht.readTemperature(); 
+
+  String html = "<html>";
+  html += "<head><title>Medicine Rack </title>";
+  html += "<meta http-equiv='refresh' content='5'>"; 
+  html += "<style>";
+  html += "body { font-family: Arial, sans-serif; background-color: #f4f4f4; text-align: center; padding: 20px; }";
+  html += "h1 { color: #333; }";
+  html += ".card { display: inline-block; background-color: #4CAF50; color: white; padding: 20px; margin: 10px; border-radius: 10px; box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1); font-size: 20px; }";
+  html += ".status { font-size: 24px; color: " + String(percentage < 20 ? "red" : "green") + "; font-weight: bold; }";
+  html += ".scroll { font-size: 30px; color: blue; font-weight: bold; }";
+  html += ".dht { font-size: 24px; margin-top: 20px; }";
+  html += "</style>";
+  html += "</head>";
+  html += "<body>";
+  html += "<h1>Medicine Rack</h1>";
+  html += "<div class='card status'>Medicine Remaining: " + String(percentage, 2) + "%</div>";
+  html += "<marquee class='scroll'>Current Medicine Percentage: " + String(percentage, 2) + "%</marquee>";
+  
+  html += "<div class='card'><h2>DHT11 Sensor Data</h2>";
+  html += "<p>Temperature: " + String(temperature) + " °C</p>";
+  html += "<p>Humidity: " + String(humidity) + " %</p></div>";
+  
+  html += "<h2>placed slots:</h2>" + readIRSensors();
+
+  html += "</body></html>";
+
+  return html;
+}
+
+void handleRoot() {
+  server.send(200, "text/html", getHtmlPage());
+}
+
+void setup() {
+  Serial.begin(115200);
+
+  lcd.begin(16, 2); 
+  lcd.backlight(); 
+  lcd.print("Initializing...");
+
+  pinMode(TRIG_PIN, OUTPUT);
+  pinMode(ECHO_PIN, INPUT);
+
+  pinMode(IR_SENSOR_1, INPUT);
+  pinMode(IR_SENSOR_2, INPUT);
+  pinMode(IR_SENSOR_3, INPUT);
+  pinMode(IR_SENSOR_4, INPUT);
+  pinMode(IR_SENSOR_5, INPUT);
+
+  dht.begin();
+
+  WiFi.begin(ssid, password);
+  while (WiFi.status() != WL_CONNECTED) {
+    delay(500);
+    Serial.print(".");
+  }
+
+  Serial.println("\nConnected to WiFi!");
+  Serial.print("IP address: ");
+  Serial.println(WiFi.localIP());
+
+  server.on("/", handleRoot); 
+  server.begin();
+  Serial.println("Web server started");
+}
+
+void loop() {
+  server.handleClient();
+
+  measureMedicineLevel();
+
+  checkIRSensorStock();
+
+  displayParkingStatusOnLCD();
+
+  delay(60000); 
+}

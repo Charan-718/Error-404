@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Update Information Form</title>
+  <link rel="stylesheet" href="update_form.css">
+  <style>
+    body {
+      padding: 20px;
+    }
+
+    .form-container {
+
+      max-width: 1200px;
+    }
+
+    .form-section {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .form-column {
+      flex: 0 0 48%;
+      background-color: transparent;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 4px #81c4b9;
+      backdrop-filter: blur(20px);
+    }
+
+    .input-group {
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+
+    input, textarea, select {
+      width: 100%;
+      padding: 10px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    textarea {
+      resize: vertical;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="form-container">
+    <h2>Update Information Form</h2>
+    <form id="medicalForm">
+
+      <div class="form-section">
+
+        <!-- Past Medication Details -->
+        <div class="form-column">
+          <h3>Past Medication Details</h3>
+
+          <!-- Past Disease (Complaint) -->
+          <div class="input-group">
+            <input type="text" id="past-disease" name="past-disease" placeholder="">
+            <label for="past-disease">Past Disease (Complaint)</label>
+          </div>
+
+          <!-- Past Medication -->
+          <div class="input-group">
+            <textarea id="past-medication" name="past-medication" rows="3" placeholder=""></textarea>
+            <label for="past-medication">Past Medication</label>
+          </div>
+
+          <!-- Dosage -->
+          <div class="input-group">
+            <input type="text" id="past-dosage" name="past-dosage" placeholder="">
+            <label for="past-dosage">Dosage</label>
+          </div>
+
+          <!-- Past Reports -->
+          <div class="input-group">
+            <textarea id="past-reports" name="past-reports" rows="3" placeholder=""></textarea>
+            <label for="past-reports">Past Reports</label>
+          </div>
+        </div>
+
+        <!-- Present Medication Details -->
+        <div class="form-column">
+          <h3>Present Medication Details</h3>
+
+          <!-- Active Problems -->
+          <div class="input-group">
+            <input type="text" id="active-problems" name="active-problems" placeholder="">
+            <label for="active-problems">Active Problems</label>
+          </div>
+
+          <!-- Present Provider -->
+          <div class="input-group">
+            <input type="text" id="present-provider" name="present-provider" placeholder="">
+            <label for="present-provider">Present Provider</label>
+          </div>
+
+          <!-- Active Medication -->
+          <div class="input-group">
+            <textarea id="active-medication" name="active-medication" rows="3" placeholder=""></textarea>
+            <label for="active-medication">Active Medication</label>
+          </div>
+
+          <!-- Dosage -->
+          <div class="input-group">
+            <input type="text" id="present-dosage" name="present-dosage" placeholder="">
+            <label for="present-dosage">Dosage</label>
+          </div>
+
+          <!-- Tests to be Done -->
+          <div class="input-group">
+            <textarea id="tests-to-be-done" name="tests-to-be-done" rows="3" placeholder=""></textarea>
+            <label for="tests-to-be-done">Tests to be Done</label>
+          </div>
+
+          <!-- Assessment -->
+          <div class="input-group">
+            <textarea id="assessment" name="assessment" rows="2" placeholder=""></textarea>
+            <label for="assessment">Assessment</label>
+          </div>
+
+          <!-- Discharge Date -->
+          <div class="input-group">
+            <input type="date" id="discharge-date" name="discharge-date">
+            <label for="discharge-date">Discharge Date</label>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="form-column" style="margin-top: 25px;">
+        <h3>Inpatient Details</h3>
+              
+        <!-- Bed No -->
+        <div class="input-group">
+          <input type="number" id="bed-no" name="bed-no" required placeholder="">
+          <label for="bed-no">Bed No</label>
+        </div>
+        
+        <!-- Ward No -->
+        <div class="input-group">
+          <input type="number" id="ward-no" name="ward-no" required placeholder="">
+          <label for="ward-no">Ward No</label>
+        </div>
+        
+        <!-- Floor No -->
+        <div class="input-group">
+          <input type="number" id="floor-no" name="floor-no" required placeholder="">
+          <label for="floor-no">Floor No</label>
+        </div>
+        
+        <!-- Block -->
+        <div class="input-group">
+          <input type="text" id="block" name="block" required placeholder="">
+          <label for="block">Block</label>
+        </div>
+        
+        <!-- Consultant Name -->
+        <div class="input-group">
+          <input type="text" id="consultant-name" name="consultant-name" required placeholder="">
+          <label for="consultant-name">Consultant Name</label>
+        </div>
+        
+      </div>
+      <!-- Submit Button -->
+      <div class="button-container">
+        <button type="submit">Submit Updated Information</button>
+      </div>
+
+    </form>
+  </div>
+
+<script>
+  document.getElementById('medicalForm').addEventListener('submit', async function(event) {
+    event.preventDefault();
+    
+    const formData = {
+      pastDisease: document.getElementById('past-disease').value,
+      pastMedication: document.getElementById('past-medication').value,
+      pastDosage: document.getElementById('past-dosage').value,
+      pastReports: document.getElementById('past-reports').value,
+      activeProblems: document.getElementById('active-problems').value,
+      presentProvider: document.getElementById('present-provider').value,
+      activeMedication: document.getElementById('active-medication').value,
+      presentDosage: document.getElementById('present-dosage').value,
+      testsToBeDone: document.getElementById('tests-to-be-done').value,
+      assessment: document.getElementById('assessment').value,
+      dischargeDate: document.getElementById('discharge-date').value,
+      bedNo: document.getElementById('bed-no').value,
+      wardNo: document.getElementById('ward-no').value,
+      floorNo: document.getElementById('floor-no').value,
+      block: document.getElementById('block').value,
+      consultantName: document.getElementById('consultant-name').value
+    };
+
+    try {
+      const id = new URLSearchParams(window.location.search).get('id'); // Assuming the patient ID is passed in the query params
+      const response = await fetch(`http://localhost:5000/patient/update/${id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(formData)
+      });
+
+      const result = await response.json();
+      if (response.ok) {
+        alert('Patient details updated successfully');
+        window.location.href = 'patient_details.html'; // Redirect back to patient detail view
+      } else {
+        alert(`Error: ${result.message}`);
+      }
+    } catch (error) {
+      console.error('Error updating patient:', error);
+      alert('Failed to update patient information');
+    }
+  });
+</script>
+
+
+
+</body>
+</html>

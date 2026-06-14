@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Animated Dashboard</title>
+    <link rel="stylesheet" href="../admin_block.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Bootstrap CSS CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* Ensure sidebar and content are flex */
+        .dashboard-container {
+            display: flex;
+        }
+
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            padding: 20px;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="text-center">
+            <!--    <img src="img/stu-01.jpg" alt="profile" class="mb-3 profile-pic"><br/>-->
+                <h3 class="sidebar-logo">Administrative<br>Block<br/>   Components</h3>
+            </div>
+            <!-- Hardware Section -->
+            <input type="checkbox" id="hardware" class="toggle">
+            <label for="hardware" class="menu-title">Machinery</label>
+            <ul class="nav flex-column dropdown">
+                <li class="nav-item">
+                    <a class="nav-link" href="../admin_block.html"><i class="fas fa-desktop"></i>    Computer</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="barcode.html"><i class="fas fa-barcode"></i>    Barcode/RFID Scanners</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" href="telecom.html"><i class="fas fa-mobile-alt"></i>    Telecommunications</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="printer.html"><i class="fas fa-print"></i>    Printers</a>
+                </li>
+            </ul>
+
+            <!-- Software Section 
+            <input type="checkbox" id="software" class="toggle">
+            <label for="software" class="menu-title">Software</label>
+            <ul class="nav flex-column dropdown">
+                <li class="nav-item">
+                    <a class="nav-link active" href="home.html"><i class="fas fa-desktop"></i>    Operating Systems</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="course_perf.html"><i class="fas fa-barcode"></i>    Productivity Tools</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="weekly_progress.html"><i class="fas fa-mobile-alt"></i>    Security Softwares</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="leaderboard.html"><i class="fas fa-cloud"></i>    DBMS</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="learning_path.html"><i class="fas fa-network-wired"></i>    Netwments</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="../login_interface/login_interface.html"><i class="fas fa-arrow-left icon"></i>    Back</a>
+                </li>
+            </ul>-->
+
+            <!-- Infrastructure Section -->
+            <input type="checkbox" id="infrastructure" class="toggle">
+            <label for="infrastructure" class="menu-title">Infrastructure</label>
+            <ul class="nav flex-column dropdown">
+                <li class="nav-item">
+                    <a class="nav-link" href="../infrastructure/survelliance.html"><i class="fas fa-desktop"></i>    Survelliance</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="../infrastructure/network_devices.html"><i class="fas fa-barcode"></i>    Networking Devices</a>
+                </li>
+            </ul>
+            <ul class="nav flex-column">
+                <li class="nav-item">
+                    <a class="nav-link" href="../../../equip_dash/block.html"><i class="fas fa-arrow-left icon"></i>    Back</a>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <div class="container mt-5">
+                <div class="row">
+                    <!-- First Card -->
+                    <div class="col-lg-4 col-md-6 mb-4">
+                        <div class="card">
+                            <img src="two-way-radios2.jpg" class="card-img-top" alt="CPU Image">
+                            <div class="card-body text-center">
+                                <h5 class="card-title">Two-Way Radios</h5>
+                                <div class="d-flex flex-row justify-content-between">
+                                    <p class="card-text">Each Cost : 1200/-</p>
+                                    <p class="card-text">Stock : <span class=""> 25</span></p>
+                                </div>
+                                <div class="d-flex flex-row justify-content-between">
+                                    <p class="card-text ml-5">Working : 31</p>
+                                    <p class="card-text">   Defected : 6</p>
+                                </div>
+                                <div class="d-flex flex-row justify-content-between">
+                                    <p class="card-text">Assigned : 18</p>
+                                    <p class="card-text">Not Assigned : 7</p>
+                                </div>
+                                <div class="d-flex flex-row justify-content-center">
+                                    <p><i class="fas fa-map-marker-alt"></i>    Location: 302</p>
+                                </div>
+                            </div>
+                            <!-- Card Footer with Call to Action 
+                            <div class="card-footer text-center bg-light py-3">
+                                <a href="#" class="btn btn-outline-success btn-sm">View Details</a>
+                                <a href="#" class="btn btn-outline-secondary btn-sm">Edit</a>
+                            </div>-->
+                        </div>
+                    </div>
+
+                    <!-- Second Card -->
+                    <div class="col-lg-4 col-md-6 mb-4">
+                        <div class="card">
+                            <img src="pagers1.avif" class="card-img-top" alt="Computer Image">
+                            <div class="card-body text-center">
+                                <h5 class="card-title">Pagers</h5>
+                                <div class="d-flex flex-row justify-content-between">
+                                    <p class="card-text">Each Cost : 1800/-</p>
+                                    <p class="card-text">Stock: 26</p>
+                                </div>
+                                <div class="d-flex flex-row justify-content-between">
+                                    <p class="card-text">Working : 15</p>
+                                    <p class="card-text">Defected : 3</p>
+                                </div>
+                                <div class="d-flex flex-row justify-content-between">
+                                    <p class="card-text">Assigned : 12</p>
+                                    <p class="card-text">Not Assigned : 8</p>
+                                </div>
+                                <div class="d-flex flex-row justify-content-center">
+                                    <p><i class="fas fa-map-marker-alt"></i>    Location: 302</p>
+                                </div>
+                            </div>
+                            <!-- Card Footer with Call to Action 
+                            <div class="card-footer text-center bg-light py-3">
+                                <a href="#" class="btn btn-outline-success btn-sm">View Details</a>
+                                <a href="#" class="btn btn-outline-secondary btn-sm">Edit</a>
+                            </div>-->
+                        </div>
+                    </div>
+
+                    <!-- Third Card -->
+                    <div class="col-lg-4 col-md-6 mb-4">
+                        <div class="card">
+                            <img src="tp-telephony1.jpg" class="card-img-top" alt="Keyboard Image">
+                            <div class="card-body text-center">
+                                <h5 class="card-title">TP Telephony</h5>
+                                <div class="d-flex flex-row justify-content-between">
+                                    <p class="card-text">Each Cost : 700/-</p>
+                                    <p class="card-text">Stock: 44</p>
+                                </div>
+                                <div class="d-flex flex-row justify-content-between">
+                                    <p class="card-text">Working : 19</p>
+                                    <p class="card-text">Defected : 1</p>
+                                </div>
+                                <div class="d-flex flex-row justify-content-between">
+                                    <p class="card-text">Assigned : 14</p>
+                                    <p class="card-text">Not Assigned : 6</p>
+                                </div>
+                                <div class="d-flex flex-row justify-content-center">
+                                    <p><i class="fas fa-map-marker-alt"></i>    Location: 302</p>
+                                </div>
+                            </div>
+                            <!-- Card Footer with Call to Action 
+                            <div class="card-footer text-center bg-light py-3">
+                                <a href="#" class="btn btn-outline-success btn-sm">View Details</a>
+                                <a href="#" class="btn btn-outline-secondary btn-sm">Edit</a>
+                            </div>-->
+                        </div>
+                    </div>
+
+                    <!-- Fourth Card -->
+                    <div class="col-lg-4 col-md-6 mb-4">
+                        <div class="card">
+                            <img src="barcode_rfid1.jpg" class="card-img-top" alt="UPS Image">
+                            <div class="card-body text-center">
+                                <h5 class="card-title">Barcode & RFID Communicators</h5>
+                                <div class="d-flex flex-row justify-content-between">
+                                    <p class="card-text">Each Cost : 1600/-</p>
+                                    <p class="card-text">Stock: 24</p>
+                                </div>
+                                <div class="d-flex flex-row justify-content-between">
+                                    <p class="card-text">Working : 19</p>
+                                    <p class="card-text">Defected : 1</p>
+                                </div>
+                                <div class="d-flex flex-row justify-content-between">
+                                    <p class="card-text">Assigned : 14</p>
+                                    <p class="card-text">Not Assigned : 6</p>
+                                </div>
+                                <div class="d-flex flex-row justify-content-center">
+                                    <p><i class="fas fa-map-marker-alt"></i>    Location: 302</p>
+                                </div>
+                            </div>
+                            <!-- Card Footer with Call to Action 
+                            <div class="card-footer text-center bg-light py-3">
+                                <a href="#" class="btn btn-outline-success btn-sm">View Details</a>
+                                <a href="#" class="btn btn-outline-secondary btn-sm">Edit</a>
+                            </div>-->
+                        </div>
+                    </div>
+
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz4fnFO9gybKQspUcLtYKnP6u6bDHUCCdAIlSkpHjTNp0U5P9p49FI2NsH" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js" integrity="sha384-cn7l7gDp0eyfDa9h+8BL5j5ZZCXNGZsI5pq5kyz4+n1pFf4XxBfXBrqf0pGAYKQ9" crossorigin="anonymous"></script>
+</body>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Animated Sidebar with Dropdowns</title>
+  <link rel="stylesheet" href="trash2.css">
+</head>
+<body>
+  <div class="sidebar">
+    <div class="menu">
+      <!-- Hardware Section -->
+      <input type="checkbox" id="hardware" class="toggle">
+      <label for="hardware" class="menu-title">Hardware</label>
+      <ul class="dropdown">
+        <li>Monitors</li>
+        <li>Keyboards</li>
+        <li>Printers</li>
+      </ul>
+
+      <!-- Software Section -->
+      <input type="checkbox" id="software" class="toggle">
+      <label for="software" class="menu-title">Software</label>
+      <ul class="dropdown">
+        <li>Operating Systems</li>
+        <li>Productivity Tools</li>
+        <li>Security Software</li>
+      </ul>
+
+      <!-- Infrastructure Section -->
+      <input type="checkbox" id="infrastructure" class="toggle">
+      <label for="infrastructure" class="menu-title">Infrastructure</label>
+      <ul class="dropdown">
+        <li>Servers</li>
+        <li>Networking Devices</li>
+        <li>Storage Solutions</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="content">
+    <h1>Welcome to the Dashboard</h1>
+    <p>Select a section from the sidebar to see the options.</p>
+  </div>
+</body>
+</html>

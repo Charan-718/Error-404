@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interface</title>
+    <link rel="shortcut icon" type="x-icon" href="">
+    <link rel="stylesheet" href="healthcare.css">
+</head>
+<body class="bg-container">
+
+    
+    <div class="container">
+        <div class="member-card" onclick="navigateTo('apply_form.html')">
+            
+            <h2>Application Form</h2>
+            
+        </div>
+        <div class="member-card" onclick="navigateTo('patient_details.html')">
+            
+            <h2>Patient Data</h2>
+         
+        </div>
+        <div class="member-card" onclick="navigateTo('emergency_form.html')">
+
+                <h2 class="Instructor">Emergency Form</h2>
+ 
+    </div>
+
+    <script>
+        function navigateTo(page) {
+            window.location.href = page;
+        }
+    </script>
+</body>
+</html>

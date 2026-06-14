@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cards with Gradient Background</title>
+  <link rel="stylesheet" href="block.css">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <!-- Bootstrap CSS CDN -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
+
+    <!-- Centered heading -->
+    <h1 style="color: #249ea0;">Access Your Block</h1>
+    
+    <div class="container">
+        <div class="member-card col-lg-4">
+            <img class="admin-image" src="admin2.webp"/>
+            <div style="margin-top: 15px;">
+                <h4>Administrative Block</h4>
+                <div>
+                    <button class="btn-line" onclick="window.location.href='administrative/admin_block.html';">Access It</button>
+                </div>
+            </div>
+        </div>
+        <div class="member-card col-lg-4" onclick="navigateTo('../signup_interface/signup_interface.html')">
+            <div style="margin-top: 0px;">
+                <img class="admin-image" src="main2.webp"/>
+            </div>
+           <div style="margin-top: 15px;">
+                <h4>Main Block</h4>
+                <div>
+                    <button class="btn-line" onclick="window.location.href='main/main_block.html';">Access It</button>
+                </div>
+           </div>
+        </div>
+        <div class="member-card col-lg-4" onclick="navigateTo('login2.html')">
+            <div style="margin-top: 0px;">
+                <img class="admin-image" src="emergency2.webp"/>
+            </div>
+            <div style="margin-top: 15px;">
+                <h4 class="Instructor">Emergency Block</h4>
+                <div>
+                    <button class="btn-line" onclick="window.location.href='emergency/emergency_block.html';">Access It</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz4fnFO9gybKQspUcLtYKnP6u6bDHUCCdAIlSkpHjTNp0U5P9p49FI2NsH" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js" integrity="sha384-cn7l7gDp0eyfDa9h+8BL5j5ZZCXNGZsI5pq5kyz4+n1pFf4XxBfXBrqf0pGAYKQ9" crossorigin="anonymous"></script>
+</body>
+</html>

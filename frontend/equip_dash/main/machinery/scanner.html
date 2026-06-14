@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Animated Dashboard</title>
+    <link rel="stylesheet" href="../main_block.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Bootstrap CSS CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* Ensure sidebar and content are flex */
+        .dashboard-container {
+            display: flex;
+        }
+
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            padding: 20px;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="text-center">
+            <!--    <img src="img/stu-01.jpg" alt="profile" class="mb-3 profile-pic"><br/>-->
+                <h3 class="sidebar-logo">Main<br>Block<br/>   Components</h3>
+            </div>
+            
+            <!-- Medical Supplies Section -->
+            <input type="checkbox" id="infrastructure" class="toggle">
+            <label for="infrastructure" class="menu-title">Medical Supplies</label>
+            <ul class="nav flex-column dropdown">
+                <li class="nav-item">
+                    <a class="nav-link" href="../medi_suppi/protective.html"><i class="fas fa-shield-alt"></i> <!-- Shield for general protection -->
+                            Protective Equipment</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="../medi_suppi/wound_care.html"><i class="fas fa-band-aid"></i> <!-- Bandage for wound care -->
+                            Wound Care</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="../medi_suppi/surgical_supplies.html">
+                        <i class="fas fa-cut"></i>
+                            Surgical Supplies</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="../medi_suppi/diagnostic.html"><i class="fas fa-stethoscope"></i> <!-- Stethoscope for diagnostics -->
+                            Diagnostic Supplies</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="../medi_suppi/respiratory.html"><i class="fas fa-wheelchair"></i> <!-- Wheelchair for mobility aids -->
+                            Mobility Aids &<br><i class="fas fa-lungs"></i>    Respiratory</a>
+                </li>
+            </ul>
+
+            <!-- Hardware Section -->
+            <input type="checkbox" id="hardware" class="toggle">
+            <label for="hardware" class="menu-title">Machinery</label>
+            <ul class="nav flex-column dropdown">
+                <li class="nav-item">
+                    <a class="nav-link active" href="scanner.html"><i class="fas fa-print"></i> <!-- Printer icon -->Scanners</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="laboratory.html"><i class="fas fa-microscope"></i> Laboratory</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="measuring.html"><i class="fas fa-ruler"></i>    Measuring Equipments</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="specialized.html"><i class="fas fa-procedures"></i>   Specialized Tools</a>
+                </li>
+            </ul>
+            <ul class="nav flex-column">
+                <li class="nav-item">
+                    <a class="nav-link" href="../main_block.html"><i class="fas fa-arrow-left icon"></i>    Back</a>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <div class="container mt-5">
+                <div class="row">
+                    <!-- First Card -->
+                    <div class="col-lg-4 col-md-6 mb-4">
+                        <div class="card">
+                            <img src="ct-scan1.png" class="card-img-top" alt="CT Image">
+                            <div class="card-body text-center">
+                                <h5 class="card-title">CT Scanner</h5>
+                                <div class="d-flex flex-row justify-content-between">
+                                    <p class="card-text">Each Cost : 1200/-</p>
+                                    <p class="card-text">Stock : <span class=""> 25</span></p>
+                                </div>
+                                <div class="d-flex flex-row justify-content-between">
+                                    <p class="card-text ml-5">Working : 31</p>
+                                    <p class="card-text">   Defected : 6</p>
+                                </div>
+                                <div class="d-flex flex-row justify-content-between">
+                                    <p class="card-text">Assigned : 18</p>
+                                    <p class="card-text">Not Assigned : 7</p>
+                                </div>
+                                <div class="d-flex flex-row justify-content-center">
+                                    <p><i class="fas fa-map-marker-alt"></i>    Location: 302</p>
+                                </div>
+                            </div>
+                            <!-- Card Footer with Call to Action 
+                            <div class="card-footer text-center bg-light py-3">
+                                <a href="#" class="btn btn-outline-success btn-sm">View Details</a>
+                                <a href="#" class="btn btn-outline-secondary btn-sm">Edit</a>
+                            </div>-->
+                        </div>
+                    </div>
+
+                    <!-- Second Card -->
+                    <div class="col-lg-4 col-md-6 mb-4">
+                        <div class="card">
+                            <img src="x-ray1.jpeg" class="card-img-top" alt="X-Ray Image">
+                            <div class="card-body text-center">
+                                <h5 class="card-title">X-Ray Machines</h5>
+                                <div class="d-flex flex-row justify-content-between">
+                                    <p class="card-text">Each Cost : 1800/-</p>
+                                    <p class="card-text">Stock: 26</p>
+                                </div>
+                                <div class="d-flex flex-row justify-content-between">
+                                    <p class="card-text">Working : 15</p>
+                                    <p class="card-text">Defected : 3</p>
+                                </div>
+                                <div class="d-flex flex-row justify-content-between">
+                                    <p class="card-text">Assigned : 12</p>
+                                    <p class="card-text">Not Assigned : 8</p>
+                                </div>
+                                <div class="d-flex flex-row justify-content-center">
+                                    <p><i class="fas fa-map-marker-alt"></i>    Location: 302</p>
+                                </div>
+                            </div>
+                            <!-- Card Footer with Call to Action 
+                            <div class="card-footer text-center bg-light py-3">
+                                <a href="#" class="btn btn-outline-success btn-sm">View Details</a>
+                                <a href="#" class="btn btn-outline-secondary btn-sm">Edit</a>
+                            </div>-->
+                        </div>
+                    </div>
+
+                    <!-- Third Card -->
+                    <div class="col-lg-4 col-md-6 mb-4">
+                        <div class="card">
+                            <img src="mri1.jpg" class="card-img-top" alt="MRI Image">
+                            <div class="card-body text-center">
+                                <h5 class="card-title">MRI Scanners</h5>
+                                <div class="d-flex flex-row justify-content-between">
+                                    <p class="card-text">Each Cost : 700/-</p>
+                                    <p class="card-text">Stock: 44</p>
+                                </div>
+                                <div class="d-flex flex-row justify-content-between">
+                                    <p class="card-text">Working : 19</p>
+                                    <p class="card-text">Defected : 1</p>
+                                </div>
+                                <div class="d-flex flex-row justify-content-between">
+                                    <p class="card-text">Assigned : 14</p>
+                                    <p class="card-text">Not Assigned : 6</p>
+                                </div>
+                                <div class="d-flex flex-row justify-content-center">
+                                    <p><i class="fas fa-map-marker-alt"></i>    Location: 302</p>
+                                </div>
+                            </div>
+                            <!-- Card Footer with Call to Action 
+                            <div class="card-footer text-center bg-light py-3">
+                                <a href="#" class="btn btn-outline-success btn-sm">View Details</a>
+                                <a href="#" class="btn btn-outline-secondary btn-sm">Edit</a>
+                            </div>-->
+                        </div>
+                    </div>
+
+                    <!-- Fourth Card 
+                    <div class="col-lg-4 col-md-6 mb-4">
+                        <div class="card">
+                            <img src="ultrasound-scanner1.png" class="card-img-top" alt="UPS Image">
+                            <div class="card-body text-center">
+                                <h5 class="card-title">Ultrasound Scanner</h5>
+                                <div class="d-flex flex-row justify-content-between">
+                                    <p class="card-text">Each Cost : 1600/-</p>
+                                    <p class="card-text">Stock: 24</p>
+                                </div>
+                                <div class="d-flex flex-row justify-content-between">
+                                    <p class="card-text">Working : 19</p>
+                                    <p class="card-text">Defected : 1</p>
+                                </div>
+                                <div class="d-flex flex-row justify-content-between">
+                                    <p class="card-text">Assigned : 14</p>
+                                    <p class="card-text">Not Assigned : 6</p>
+                                </div>
+                            </div>
+                             Card Footer with Call to Action 
+                            <div class="card-footer text-center bg-light py-3">
+                                <a href="#" class="btn btn-outline-success btn-sm">View Details</a>
+                                <a href="#" class="btn btn-outline-secondary btn-sm">Edit</a>
+                            </div>
+                        </div>
+                    </div>-->
+
+                    <!-- Fourth Card -->
+                    <div class="col-lg-4 col-md-6 mb-4">
+                        <div class="card">
+                            <img src="pet1.jpg" class="card-img-top" alt="Mouse Image">
+                            <div class="card-body text-center">
+                                <h5 class="card-title">PET Scanners</h5>
+                                <div class="d-flex flex-row justify-content-between">
+                                    <p class="card-text">Each Cost : 430/-</p>
+                                    <p class="card-text">Stock: 41</p>
+                                </div>
+                                <div class="d-flex flex-row justify-content-between">
+                                    <p class="card-text">Working : 19</p>
+                                    <p class="card-text">Defected : 1</p>
+                                </div>
+                                <div class="d-flex flex-row justify-content-between">
+                                    <p class="card-text">Assigned : 14</p>
+                                    <p class="card-text">Not Assigned : 6</p>
+                                </div>
+                                <div class="d-flex flex-row justify-content-center">
+                                    <p><i class="fas fa-map-marker-alt"></i>    Location: 302</p>
+                                </div>
+                            </div>
+                            <!-- Card Footer with Call to Action 
+                            <div class="card-footer text-center bg-light py-3">
+                                <a href="#" class="btn btn-outline-success success btn-sm">View Details</a>
+                                <a href="#" class="btn btn-outline-secondary btn-sm">Edit</a>
+                            </div>-->
+                        </div>
+                    </div>
+
+                    <!-- Fifth Card -->
+                    <div class="col-lg-4 col-md-6 mb-4">
+                        <div class="card">
+                            <img src="mammography1.png" class="card-img-top" alt="Mouse Image">
+                            <div class="card-body text-center">
+                                <h5 class="card-title">Mammography Scanners</h5>
+                                <div class="d-flex flex-row justify-content-between">
+                                    <p class="card-text">Each Cost : 430/-</p>
+                                    <p class="card-text">Stock: 41</p>
+                                </div>
+                                <div class="d-flex flex-row justify-content-between">
+                                    <p class="card-text">Working : 19</p>
+                                    <p class="card-text">Defected : 1</p>
+                                </div>
+                                <div class="d-flex flex-row justify-content-between">
+                                    <p class="card-text">Assigned : 14</p>
+                                    <p class="card-text">Not Assigned : 6</p>
+                                </div>
+                                <div class="d-flex flex-row justify-content-center">
+                                    <p><i class="fas fa-map-marker-alt"></i>    Location: 302</p>
+                                </div>
+                            </div>
+                            <!-- Card Footer with Call to Action 
+                            <div class="card-footer text-center bg-light py-3">
+                                <a href="#" class="btn btn-outline-success success btn-sm">View Details</a>
+                                <a href="#" class="btn btn-outline-secondary btn-sm">Edit</a>
+                            </div>-->
+                        </div>
+                    </div>
+
+                    <!-- Sixth Card -->
+                    <div class="col-lg-4 col-md-6 mb-4">
+                        <div class="card">
+                            <img src="dexa2.jpg" class="card-img-top" alt="Mouse Image">
+                            <div class="card-body text-center">
+                                <h5 class="card-title">DEXA Scanners</h5>
+                                <div class="d-flex flex-row justify-content-between">
+                                    <p class="card-text">Each Cost : 430/-</p>
+                                    <p class="card-text">Stock: 41</p>
+                                </div>
+                                <div class="d-flex flex-row justify-content-between">
+                                    <p class="card-text">Working : 19</p>
+                                    <p class="card-text">Defected : 1</p>
+                                </div>
+                                <div class="d-flex flex-row justify-content-between">
+                                    <p class="card-text">Assigned : 14</p>
+                                    <p class="card-text">Not Assigned : 6</p>
+                                </div>
+                                <div class="d-flex flex-row justify-content-center">
+                                    <p><i class="fas fa-map-marker-alt"></i>    Location: 302</p>
+                                </div>
+                            </div>
+                            <!-- Card Footer with Call to Action 
+                            <div class="card-footer text-center bg-light py-3">
+                                <a href="#" class="btn btn-outline-success success btn-sm">View Details</a>
+                                <a href="#" class="btn btn-outline-secondary btn-sm">Edit</a>
+                            </div>-->
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz4fnFO9gybKQspUcLtYKnP6u6bDHUCCdAIlSkpHjTNp0U5P9p49FI2NsH" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js" integrity="sha384-cn7l7gDp0eyfDa9h+8BL5j5ZZCXNGZsI5pq5kyz4+n1pFf4XxBfXBrqf0pGAYKQ9" crossorigin="anonymous"></script>
+</body>
+</html>

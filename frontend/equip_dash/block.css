@@ -1,0 +1,136 @@
+/* Reset some default styles */
+body, h1, h2, p {
+    margin: 0;
+    padding: 0;
+  }
+  
+  /* Basic styling for the body */
+  body {
+    font-family: Arial, sans-serif;
+    background-image: url('wall6.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    flex-direction: column; /* To center the content vertically */
+  }
+  
+  /* Heading styling */
+  .heading-title {
+    color: #ffffff;
+    font-size: 24px;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  
+  /* Container to center and space out the member cards */
+  .container {
+    display: flex;
+    gap: 20px;
+    max-width: 800px;
+    width: 100%;
+    padding: 20px;
+    justify-content: center;
+  }
+  
+  /* Basic styling for each member card */
+  .member-card {
+    background-color: #fce7cc;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    height: auto;
+    text-align: center;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+  
+  /* Styling for the image inside the card */
+  .admin-image, .instructor-image {
+    border-radius: 10%;
+    object-fit: cover;
+  }
+  
+  /* Specific image sizes */
+  .admin-image {
+    height: 130px;
+    width: 200px;
+  }
+  
+  /* Styling for the headings */
+  .member-card h4 {
+    color: #4a2c2c;
+    margin-top: 15px;
+    margin-bottom: 10px;
+  }
+  
+  /* Styling for the paragraphs */
+  .member-card p {
+    color: #666;
+  }
+  
+  /* Hover effects for the member cards */
+  .member-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+  }
+  
+  .bg-container {
+    background-color: #181d38;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  
+
+
+  .nav-link {
+    width: 200px;
+    height: 36px;
+    color: #bce4e0;
+    padding: 100px;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    font-size: 14px;
+    transition: background-color 0.3s;
+  }
+ 
+  .nav-link:hover,
+  .nav-link.active {
+    color: #499e95;
+    background-color: #082434;/*#5a54e7*/
+    border-radius: 8px;
+  }
+  
+  /* Basic button styling */
+  .btn-line {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 14px;
+    font-family: Arial, sans-serif;
+    cursor: pointer;
+    color: #ff8113; /* Text color (Primary style) */
+    background-color: transparent; /* Transparent background */
+    border: 2px solid #ff8113; /* Border color */
+    border-radius: 4px; /* Rounded corners */
+    transition: all 0.3s ease; /* Smooth transition for hover effect */
+  }
+
+  /* Hover effect to mimic Bootstrap */
+  .btn-line:hover {
+    background-color: #ff8113; /* Fill the background with the border color */
+    color: #fce7cc; /* Change text color to white */
+  }
+
+  /* Disabled button style (optional) */
+  .btn-line:disabled {
+    opacity: 0.65;
+    cursor: not-allowed;
+  }

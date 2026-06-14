@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Emergency Form</title>
+  <link rel="stylesheet" href="emergency_form.css">
+</head>
+<body>
+    <div class="form-container">
+        <h2>Emergency Form</h2>
+        <form id="emergencyForm" action="http://localhost:5000/api/emergency" method="POST">
+          <!-- Application No (Auto-filled) -->
+          <div class="input-group">
+              <input type="text" id="applicationNo" name="applicationNo" required>
+              <label for="applicationNo">Application No:</label>
+          </div>
+    
+          <!-- Date of Joining -->
+          <div class="input-group">
+            <input type="date" id="joiningDate" name="joiningDate" required>
+            <label for="joiningDate">Date Of Joining</label>
+          </div>
+    
+          <!-- Gender and Estimated Age -->
+          <div>
+            <div class="input-group">
+                <select id="gender" name="gender" required>
+                  <option value="" disabled selected>Select</option>
+                  <option value="male">Male</option>
+                  <option value="female">Female</option>
+                  <option value="other">Other</option>
+                </select>
+                <label for="gender">Gender</label>
+            </div>
+        
+            <div class="input-group">
+                <input type="text" id="estimatedAge" name="estimatedAge" required>
+                <label for="estimatedAge">Estimated Age</label>
+            </div>
+          </div>
+    
+          <!-- Physical Condition -->
+          <div class="input-group">
+            <textarea id="physicalCondition" name="physicalCondition" rows="3" required></textarea>
+            <label for="physicalCondition">Physical Condition</label>
+          </div>
+
+          <!-- Doctor Assigned -->
+          <div class="input-group">
+            <input type="text" id="doctorAssigned" name="doctorAssigned" required>
+            <label for="doctorAssigned">Doctor Assigned</label>
+          </div>
+    
+          <!-- Submit Button -->
+          <div class="button-container">
+            <button type="submit">Submit</button>
+          </div>
+        </form>
+    </div>
+
+    <script>
+      document.getElementById('emergencyForm').addEventListener('submit', function(event) {
+    event.preventDefault();
+
+    const formData = {
+        applicationNo: document.getElementById('applicationNo').value,
+        joiningDate: document.getElementById('joiningDate').value,
+        gender: document.getElementById('gender').value,
+        estimatedAge: document.getElementById('estimatedAge').value,
+        physicalCondition: document.getElementById('physicalCondition').value,
+        doctorAssigned: document.getElementById('doctorAssigned').value
+    };
+
+    fetch('http://localhost:5000/api/emergency', {  // Ensure this URL matches your backend
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData)
+    })
+    .then(response => {
+        console.log(response); // Check the response status and body here
+        return response.json();
+    })
+    .then(data => {
+        console.log('Success:', data);
+        if (data.success) {
+            alert('Form submitted successfully!');
+            window.location.href = 'healthcare.html';
+        } else {
+            alert('Error submitting the form.');
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('An error occurred while submitting the form.');
+    });
+});
+    </script>
+    
+</body>
+</html>
