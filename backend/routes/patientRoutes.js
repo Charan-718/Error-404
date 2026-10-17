@@ -2,21 +2,32 @@ const express = require('express');
 const router = express.Router();
 const Patient = require('../models/PatientForm'); 
 const mongoose = require('mongoose');
-const { validateCode, submitForm } = require('../controllers/patientController');
-
-
-
+const { isConnected, store } = require('../config/fallbackStore');
 
 router.post('/submit-form', async (req, res) => {
     const { applicationNo } = req.body;
 
     try {
+        if (!isConnected()) {
+            const existingApplication = store.patients.find(p => p.applicationNo === applicationNo);
+            if (existingApplication) {
+                return res.status(400).json({ message: 'Application No must be unique' });
+            }
+
+            const newApplication = {
+                _id: 'pat_' + Date.now(),
+                ...req.body,
+                createdAt: new Date()
+            };
+            store.patients.push(newApplication);
+            console.log('[Fallback Seed] Patient record submitted successfully:', applicationNo);
+            return res.status(201).json({ message: 'Application submitted successfully' });
+        }
 
         const existingApplication = await Patient.findOne({ applicationNo });
         if (existingApplication) {
             return res.status(400).json({ message: 'Application No must be unique' });
         }
-
 
         const newApplication = new Patient(req.body);
         await newApplication.save();
@@ -29,6 +40,10 @@ router.post('/submit-form', async (req, res) => {
 
 router.get('/get-all', async (req, res) => {
     try {
+        if (!isConnected()) {
+            return res.json(store.patients);
+        }
+
         const patients = await Patient.find(); 
         res.json(patients);
     } catch (error) {
@@ -39,6 +54,12 @@ router.get('/get-all', async (req, res) => {
 // Get patient by ID
 router.get('/:id', async (req, res) => {
     try {
+        if (!isConnected()) {
+            const patient = store.patients.find(p => p._id === req.params.id || p.applicationNo === req.params.id);
+            if (!patient) return res.status(404).json({ message: 'Patient not found' });
+            return res.json(patient);
+        }
+
         const patient = await Patient.findById(req.params.id);
         if (!patient) return res.status(404).json({ message: 'Patient not found' });
         res.json(patient);
@@ -47,17 +68,23 @@ router.get('/:id', async (req, res) => {
     }
 });
 
-
-
 router.put('/update/:id', async (req, res) => {
     const { id } = req.params; 
     console.log("Received patient ID:", id);
 
-    if (!mongoose.Types.ObjectId.isValid(id)) {
-        return res.status(400).json({ message: 'Invalid Patient ID' });
-    }
-
     try {
+        if (!isConnected()) {
+            const index = store.patients.findIndex(p => p._id === id || p.applicationNo === id);
+            if (index === -1) return res.status(404).json({ message: 'Patient not found' });
+            store.patients[index] = { ...store.patients[index], ...req.body };
+            console.log('[Fallback Seed] Patient updated:', id);
+            return res.status(200).json(store.patients[index]);
+        }
+
+        if (!mongoose.Types.ObjectId.isValid(id)) {
+            return res.status(400).json({ message: 'Invalid Patient ID' });
+        }
+
         const updatedPatient = await Patient.findByIdAndUpdate(id, req.body, { new: true });
         if (!updatedPatient) return res.status(404).json({ message: 'Patient not found' });
         res.status(200).json(updatedPatient);
@@ -67,9 +94,5 @@ router.put('/update/:id', async (req, res) => {
     }
 });
 
-
-
-
-
-
 module.exports = router;
+
