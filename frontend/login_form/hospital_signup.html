@@ -57,6 +57,7 @@
         </div>
     </div>
 
+    <script src="../config.js"></script>
     <script>
         document.getElementById('signupForm').addEventListener('submit', async (e) => {
             e.preventDefault();
@@ -69,7 +70,7 @@
             const password = document.querySelector('input[name="password"]').value;
             const confirmPassword = document.querySelector('input[name="confirmPassword"]').value;
     
-            const response = await fetch('http://localhost:5000/api/auth/signup', {
+            const response = await fetch(`${API_BASE_URL}/api/auth/signup`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

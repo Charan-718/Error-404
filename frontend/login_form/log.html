@@ -34,6 +34,7 @@
         </div>
     </div>
 
+    <script src="../config.js"></script>
     <script>
         document.querySelector('#loginform').addEventListener('submit', async (e) => {
             e.preventDefault();
@@ -41,7 +42,7 @@
             const loginID = document.querySelector('input[name="loginID"]').value;
             const password = document.querySelector('input[name="password"]').value;
     
-            const response = await fetch('http://localhost:5000/api/auth/login', {
+            const response = await fetch(`${API_BASE_URL}/api/auth/login`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

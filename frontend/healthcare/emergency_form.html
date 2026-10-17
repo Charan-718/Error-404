@@ -9,7 +9,7 @@
 <body>
     <div class="form-container">
         <h2>Emergency Form</h2>
-        <form id="emergencyForm" action="http://localhost:5000/api/emergency" method="POST">
+        <form id="emergencyForm" action="#" method="POST">
           <!-- Application No (Auto-filled) -->
           <div class="input-group">
               <input type="text" id="applicationNo" name="applicationNo" required>
@@ -59,6 +59,7 @@
         </form>
     </div>
 
+    <script src="../config.js"></script>
     <script>
       document.getElementById('emergencyForm').addEventListener('submit', function(event) {
     event.preventDefault();
@@ -72,7 +73,7 @@
         doctorAssigned: document.getElementById('doctorAssigned').value
     };
 
-    fetch('http://localhost:5000/api/emergency', {  // Ensure this URL matches your backend
+    fetch(`${API_BASE_URL}/api/emergency`, {  // Ensure this URL matches your backend
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',

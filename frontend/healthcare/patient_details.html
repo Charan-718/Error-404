@@ -121,6 +121,7 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
 
+    <script src="../config.js"></script>
     <script>
         let patientsData = [];  // Store all patient data
         let emergencyData = []; // Store all emergency patient data
@@ -128,7 +129,7 @@
         // Fetch and display patient data from the patient collection
         async function fetchPatientData() {
             try {
-                const response = await fetch('http://localhost:5000/patient/get-all');
+                const response = await fetch(`${API_BASE_URL}/patient/get-all`);
                 const patients = await response.json();
                 patientsData = patients;
                 displayPatients(patientsData);
@@ -140,7 +141,7 @@
         // Fetch and display emergency data from the emergency collection
         async function fetchEmergencyData() {
             try {
-                const response = await fetch('http://localhost:5000/api/emergency/get-all');
+                const response = await fetch(`${API_BASE_URL}/api/emergency/get-all`);
                 const emergencies = await response.json();
                 emergencyData = emergencies;
                 displayEmergencyPatients(emergencyData);

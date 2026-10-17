@@ -55,7 +55,7 @@
 
   <div class="form-container">
     <h2>Application Form</h2>
-    <form id="medicalForm" action="http://localhost:5000/patient/submit-form" method="POST">
+    <form id="medicalForm" action="#" method="POST">
 
       <div class="form-section">
 
@@ -200,6 +200,7 @@
     </form>
   </div>
 
+  <script src="../config.js"></script>
   <script>
     document.getElementById("medicalForm").addEventListener("submit", async function(event) {
       event.preventDefault(); 
@@ -228,7 +229,7 @@
       };
   
       try {
-        const response = await fetch('http://localhost:5000/patient/submit-form', {
+        const response = await fetch(`${API_BASE_URL}/patient/submit-form`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'

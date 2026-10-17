@@ -1,0 +1,5 @@
+# Netlify Redirects & API Proxy Configuration
+# If you deploy on Netlify and set BACKEND_URL in config.js, this is optional.
+# Alternatively, uncomment and update the lines below with your Render URL to proxy requests:
+# /api/*  https://<YOUR-RENDER-BACKEND-URL>/api/:splat  200!
+# /patient/*  https://<YOUR-RENDER-BACKEND-URL>/patient/:splat  200!

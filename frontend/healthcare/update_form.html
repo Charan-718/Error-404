@@ -180,6 +180,7 @@
     </form>
   </div>
 
+<script src="../config.js"></script>
 <script>
   document.getElementById('medicalForm').addEventListener('submit', async function(event) {
     event.preventDefault();
@@ -205,7 +206,7 @@
 
     try {
       const id = new URLSearchParams(window.location.search).get('id'); // Assuming the patient ID is passed in the query params
-      const response = await fetch(`http://localhost:5000/patient/update/${id}`, {
+      const response = await fetch(`${API_BASE_URL}/patient/update/${id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json'
